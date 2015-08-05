@@ -1,7 +1,7 @@
 // Jeff Jacka - CodeFellows iOS Development Accelerator - Week 1
+
+
 // MARK: Monday
-
-
 var arrayToReverse : [String] = ["One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten"];
 
 for i in 0..<(arrayToReverse.count/2) {
@@ -27,5 +27,17 @@ for i in 1...100 {
     println("Buzz")
   } else {
     //Do nothing
+  }
+}
+
+//MARK: Wednesday
+let stringToAnalyze = "thisthisthisthishihihi"
+let stringToArray = Array(stringToAnalyze)
+
+var count = 0;
+
+for i in 0...stringToArray.count {
+  if (stringToArray[i]  == "h" && stringToArray[i+1] == "i") {
+    count++
   }
 }
