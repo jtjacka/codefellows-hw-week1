@@ -17,17 +17,30 @@ class ViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
-    tableView.dataSource = self
-    
-    
-    if let filepath = NSBundle.mainBundle().pathForResource("tweet", ofType: "json") {
-      if let data = NSData(contentsOfFile: filepath) {
-        if let tweets = TweetJSONParser.TweetFromJSONData(data) {
-          self.tweets = tweets
+    LoginService.loginForTwitter { (error, account) -> (Void) in
+      if let error = error {
+        println(error)
+      } else {
+        if let account = account {
+          TwitterService.tweetsFromHomeTimeline(account, completion: { (error, tweets) -> () in
+            if let error = error {
+              println(error)
+            } else {
+              if let tweets = tweets {
+                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                  self.tweets = tweets
+                  self.tableView.reloadData()
+                })
+              }
+            }
+          })
+          
         }
+        
       }
     }
     
+    tableView.dataSource = self
     
   }
 
