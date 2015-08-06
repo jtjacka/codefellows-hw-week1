@@ -35,13 +35,7 @@ class TweetDetailViewController: UIViewController {
         profileUsername?.text = "@\(tweet.username)"
         profileName?.text = tweet.name
       }
-      
     }
-    
-    
-
-    
-
   }
   
   override func viewDidLoad() {
