@@ -33,11 +33,34 @@ for i in 1...100 {
 //MARK: Wednesday
 let stringToAnalyze = "thisthisthisthishihihi"
 let stringToArray = Array(stringToAnalyze)
+var count = 0
 
-var count = 0;
-
-for i in 0...stringToArray.count {
+for i in 0..<stringToArray.count {
+  println(i)
   if (stringToArray[i]  == "h" && stringToArray[i+1] == "i") {
     count++
   }
 }
+
+println(count)
+
+//MARK: Thursday
+let removeX = "xJxexfxfx"
+var toArray = Array(removeX)
+
+for i in 0..<toArray.count {
+  println(i)
+  if i == 0 {
+    //Continue
+  } else if i == toArray.count - 1 {
+    //End of String
+    break
+  } else {
+    //remove x character
+    if toArray[i] == "x" {
+      toArray.removeAtIndex(i)
+    }
+  }
+}
+
+var backToString = String(toArray)
