@@ -97,3 +97,9 @@ queueTest.queue("Third")
 queueTest.dequeue()
 queueTest
 
+var queueTest2 = Queue(first: 1)
+queueTest.queue(2)
+queueTest.queue(3)
+queueTest.dequeue()
+queueTest
+
