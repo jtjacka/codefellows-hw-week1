@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TweetListViewController: UIViewController {
 
   @IBOutlet weak var tableView: UITableView!
   
@@ -16,6 +16,7 @@ class ViewController: UIViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    
     
     LoginService.loginForTwitter { (error, account) -> (Void) in
       if let error = error {
@@ -53,7 +54,7 @@ class ViewController: UIViewController {
 }
 
 
-extension ViewController : UITableViewDataSource {
+extension TweetListViewController : UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return tweets.count
   }
@@ -61,10 +62,14 @@ extension ViewController : UITableViewDataSource {
   
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! UITableViewCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! TweetCell
+    
     let tweet = tweets[indexPath.row]
     
-    cell.textLabel?.text = tweet.text
+    cell.tweetText?.text = tweet.text
+    cell.profileName?.text = "@\(tweet.username)"
+    cell.profileUsername?.text = tweet.name
+    
     
     return cell
   }
