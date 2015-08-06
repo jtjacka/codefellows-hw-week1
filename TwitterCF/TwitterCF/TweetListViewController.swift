@@ -23,7 +23,8 @@ class TweetListViewController: UIViewController {
         println(error)
       } else {
         if let account = account {
-          TwitterService.tweetsFromHomeTimeline(account, completion: { (error, tweets) -> () in
+          TwitterService.SharedService.account = account
+          TwitterService.tweetsFromHomeTimeline({ (error, tweets) -> () in
             if let error = error {
               println(error)
             } else {

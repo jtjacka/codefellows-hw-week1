@@ -48,6 +48,7 @@ println(count)
 let removeX = "xJxexxxxfxxxfxxxfxxx"
 var toArray = Array(removeX)
 
+//Index for While Loop
 var i = 0
 
 while i <= toArray.count{

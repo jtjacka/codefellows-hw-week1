@@ -11,9 +11,19 @@ import Accounts
 import Social
 
 class TwitterService {
-  class func tweetsFromHomeTimeline(account : ACAccount, completion: (String?, [Tweet]?) -> () ) {
+  
+  static let SharedService = TwitterService()
+  
+  var account : ACAccount?
+  var lastRefreshTime : Double?
+  var oldRefreshTime : Double?
+  
+  private init() {}
+  
+  //Tweets from Home Timeline
+  class func tweetsFromHomeTimeline(completion: (String?, [Tweet]?) -> () ) {
    let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: nil)
-    request.account = account
+    request.account = self.SharedService.account
     
     request.performRequestWithHandler { (data, response, error) -> Void in
       if let error = error {
@@ -35,4 +45,20 @@ class TwitterService {
         }
       }
     }
+  
+  //Tweets from other User Timeline
+  class func tweetsFromOtherTimeLine() {
+    
+  }
+  
+  //Refresh New Tweets
+  class func refreshNewTweets() {
+    
+  }
+  
+  //Grab Old Tweets
+  class func refreshOldTweets() {
+    
+  }
+  
   }
