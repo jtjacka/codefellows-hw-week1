@@ -49,8 +49,19 @@ class TweetListViewController: UIViewController {
     super.didReceiveMemoryWarning()
     // Dispose of any resources that can be recreated.
   }
-
-
+  
+  //Followed guide here 
+  //http://www.codingexplorer.com/segue-uitableviewcell-taps-swift/
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "showTweetDetail" {
+      if let destination = segue.destinationViewController as? TweetDetailViewController {
+        if let tweetIndex = tableView.indexPathForSelectedRow()?.row {
+          destination.tweet = tweets[tweetIndex]
+        }
+      }
+    }
+  }
+  
 }
 
 
