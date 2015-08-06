@@ -11,14 +11,23 @@ import UIKit
 class UserTimeLineViewController: UIViewController {
   
   var tweet : Tweet?
+  var tweets : [Tweet]?
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-      if let tweet = tweet {
-        TwitterService.tweetsFromOtherTimeLine(tweet.username) { (error, tweets) -> () in
-          
+      if let tweets = tweets {
+        TwitterService.tweetsFromOtherTimeLine(tweet!.username) { (error, tweets) -> () in
+          if let error = error {
+            
+          } else  {
+            if let tweets = tweets {
+              NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                self.tweets = tweets
+              })
+            }
+          }
         }
       }
   }

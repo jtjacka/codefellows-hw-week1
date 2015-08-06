@@ -6,18 +6,18 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Tweets-->
+        <!--Navigation View Controller-->
         <scene sceneID="DF7-Hm-o9I">
             <objects>
-                <navigationController id="oPs-RU-KkT" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="Navigaton Bar Controller" title="Navigation View Controller" id="oPs-RU-KkT" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Tweets" id="FMa-yd-eXz"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="9fr-RG-pUw">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
-                        <color key="barTintColor" red="0.0" green="0.67450980392156867" blue="0.92941176470588238" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.67450980392156867" blue="0.92941176470588238" alpha="0.50504210992907805" colorSpace="calibratedRGB"/>
                         <textAttributes key="titleTextAttributes">
-                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="22"/>
                             <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         </textAttributes>
                     </navigationBar>
@@ -27,12 +27,12 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ycF-6t-Z6y" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="168" y="-49"/>
+            <point key="canvasLocation" x="368" y="383"/>
         </scene>
         <!--Tweets-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="Tweets" title="Tweets" id="BYZ-38-t0r" customClass="TweetListViewController" customModule="TwitterCF" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Tweets" title="Tweets" extendedLayoutIncludesOpaqueBars="YES" id="BYZ-38-t0r" customClass="TweetListViewController" customModule="TwitterCF" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -152,6 +152,7 @@
                                         <animations/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
+                                            <outlet property="profileImage" destination="FMX-ng-S1e" id="1a9-Dy-tDo"/>
                                             <outlet property="profileName" destination="LD9-Jd-v5p" id="cV1-a5-WWU"/>
                                             <outlet property="profileUsername" destination="7aG-sp-E3R" id="96h-VW-fxK"/>
                                             <outlet property="tweetText" destination="7kX-1a-s8i" id="pCe-en-yom"/>
@@ -176,7 +177,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="884" y="-49"/>
+            <point key="canvasLocation" x="1084" y="383"/>
         </scene>
         <!--Tweet Detail-->
         <scene sceneID="nqW-Xm-ZFR">
@@ -251,7 +252,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JIV-qo-Mkv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1586" y="-49"/>
+            <point key="canvasLocation" x="1786" y="383"/>
         </scene>
         <!--Profile-->
         <scene sceneID="Mda-I7-7hl">
@@ -316,7 +317,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oa2-YS-frA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="360" y="799"/>
+            <point key="canvasLocation" x="1084" y="1231"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Udu-cB-t3G">
@@ -343,6 +344,6 @@
         <image name="Twitter-icon.png" width="512" height="512"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="W5c-y0-DAt"/>
+        <segue reference="C40-k5-cbm"/>
     </inferredMetricsTieBreakers>
 </document>

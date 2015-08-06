@@ -70,3 +70,33 @@ while i <= toArray.count{
 }
 
 var backToString = String(toArray)
+
+
+//MARK: Data Structure Thursday
+class Queue {
+  
+  private var arrayQueue : [String] = []
+  
+  init(first : String) {
+    arrayQueue.append(first)
+  }
+  
+  func queue(newItem : String){
+    arrayQueue.insert(newItem, atIndex: 0)
+  }
+  
+  func dequeue() -> String {
+    let dequeueObject : String = arrayQueue.removeLast()
+    return dequeueObject
+  }
+  
+  
+  
+}
+
+var queueTest = Queue(first: "First")
+queueTest.queue("Second")
+queueTest.queue("Third")
+queueTest.dequeue()
+queueTest
+

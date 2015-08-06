@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 Jeffrey Jacka. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 struct Tweet {
@@ -32,14 +31,15 @@ struct Tweet {
     
     var imageURL = NSURL(string: self.profileImageURL)
     if let imageURL = imageURL {
-      NSURLRequest(URL: imageURL)
+      if let imageData = NSData(contentsOfURL: imageURL),
+        image = UIImage(data: imageData) {
+          return image
+      }
       
     }
     
     return nil
   }
-
-  
 }
 
 

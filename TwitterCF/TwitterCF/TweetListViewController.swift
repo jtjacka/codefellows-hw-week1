@@ -89,6 +89,8 @@ extension TweetListViewController : UITableViewDataSource {
     cell.tweetText?.text = tweet.text
     cell.profileName?.text = "@\(tweet.username)"
     cell.profileUsername?.text = tweet.name
+    cell.profileImage?.setImage(tweet.getprofileImage(), forState: .Normal)
+    
     
     
     return cell
