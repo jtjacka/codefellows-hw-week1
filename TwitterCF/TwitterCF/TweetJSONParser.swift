@@ -42,8 +42,7 @@ class TweetJSONParser {
                             tweets.append(newTweet)
                         }
                     }
-                  } else if let quoteStatus = tweetObject["is_quote_status"] as? Bool &&
-                    if quoteStatus {
+                  } else if let quoteStatus = tweetObject["is_quote_status"] as? Bool where quoteStatus == true {
                       if let quoteData = tweetObject["quoted_status"] as? [String : AnyObject] {
                         if let quoteText = quoteData["text"] as? String,
                           let quoteUser = quoteData["user"] as? [String : AnyObject] {
@@ -56,7 +55,7 @@ class TweetJSONParser {
                         
                       }
                     } //Add Retweet Data for Retweeted Tweets
-                  }  else {
+                    else {
                     
                     //Neither Retweet or Quote
                     let newTweet = Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: nil, retweetOriginalText: nil, retweetOriginalUsername: nil, reweetOriginalName: nil, quoteStatus: nil, quotedTweet: nil, quotedOriginalUsername: nil, quotedOriginalName: nil)
