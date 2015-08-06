@@ -15,15 +15,30 @@ struct Tweet {
   let name : String
   let id : String
   let profileImageURL : String
-  let profileImage : UIImage?
+  var profileImage : UIImage?
   let retweetBool : Bool?
   let retweetOriginalText : String?
   let retweetOriginalUsername : String?
   let reweetOriginalName : String?
+  let retweetOrginalURL : String?
   let quoteStatus : Bool?
   let quotedTweet : String?
   let quotedOriginalUsername : String?
   let quotedOriginalName : String?
+  let quotedOriginalURL : String?
+  
+  func getprofileImage() -> UIImage? {
+    var image : UIImage
+    
+    var imageURL = NSURL(string: self.profileImageURL)
+    if let imageURL = imageURL {
+      NSURLRequest(URL: imageURL)
+      
+    }
+    
+    return nil
+  }
+
   
 }
 

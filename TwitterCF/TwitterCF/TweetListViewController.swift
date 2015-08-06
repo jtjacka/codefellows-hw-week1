@@ -17,6 +17,8 @@ class TweetListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    tableView.estimatedRowHeight = 100
+    tableView.rowHeight = UITableViewAutomaticDimension
     
     LoginService.loginForTwitter { (error, account) -> (Void) in
       if let error = error {
@@ -51,11 +53,17 @@ class TweetListViewController: UIViewController {
     // Dispose of any resources that can be recreated.
   }
   
-  //Followed guide here 
+  //Followed guide here:
   //http://www.codingexplorer.com/segue-uitableviewcell-taps-swift/
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
     if segue.identifier == "showTweetDetail" {
       if let destination = segue.destinationViewController as? TweetDetailViewController {
+        if let tweetIndex = tableView.indexPathForSelectedRow()?.row {
+          destination.tweet = tweets[tweetIndex]
+        }
+      }
+    } else if segue.identifier == "showProfile" {
+      if let destination = segue.destinationViewController as? UserTimeLineViewController {
         if let tweetIndex = tableView.indexPathForSelectedRow()?.row {
           destination.tweet = tweets[tweetIndex]
         }

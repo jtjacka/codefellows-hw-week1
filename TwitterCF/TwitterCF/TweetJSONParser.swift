@@ -31,14 +31,15 @@ class TweetJSONParser {
                 username = user["screen_name"] as? String{
                   
                   
-                  //Add Quote Data for Quoted Tweets
+                  //Add Retweet Data for Quoted Tweets
                   if let retweetObject  = tweetObject["retweeted_status"] as? [String : AnyObject] {
                     let retweetedBool = true
                     if let retweetText = retweetObject["text"] as? String,
                       retweetUser = retweetObject["user"] as? [String : AnyObject] {
                         if let retweetUsername = retweetUser["name"] as? String,
-                          retweetName = retweetUser["screen_name"] as? String {
-                            let newTweet =  Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: retweetedBool, retweetOriginalText: retweetText, retweetOriginalUsername: retweetUsername, reweetOriginalName: retweetName, quoteStatus: nil, quotedTweet: nil, quotedOriginalUsername: nil, quotedOriginalName: nil)
+                          retweetName = retweetUser["screen_name"] as? String,
+                        retweetProfileURL = retweetUser["profile_image_url"] as? String {
+                          let newTweet =  Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: retweetedBool, retweetOriginalText: retweetText, retweetOriginalUsername: retweetUsername, reweetOriginalName: retweetName,retweetOrginalURL : retweetProfileURL, quoteStatus: nil, quotedTweet: nil, quotedOriginalUsername: nil, quotedOriginalName: nil,  quotedOriginalURL : nil)
                             tweets.append(newTweet)
                         }
                     }
@@ -47,8 +48,9 @@ class TweetJSONParser {
                         if let quoteText = quoteData["text"] as? String,
                           let quoteUser = quoteData["user"] as? [String : AnyObject] {
                             if let quoteName = quoteUser["name"] as? String,
-                              let quoteUsername = quoteUser["screen_name"] as? String {
-                                let newTweet =  Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: nil, retweetOriginalText: nil, retweetOriginalUsername: nil, reweetOriginalName: nil, quoteStatus: quoteStatus, quotedTweet: quoteText, quotedOriginalUsername: quoteUsername, quotedOriginalName: quoteName)
+                              let quoteUsername = quoteUser["screen_name"] as? String,
+                            quoteProfileURL = quoteUser["profile_image_url"] as? String{
+                                let newTweet =  Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: nil, retweetOriginalText: nil, retweetOriginalUsername: nil, reweetOriginalName: nil, retweetOrginalURL : nil,quoteStatus: quoteStatus, quotedTweet: quoteText, quotedOriginalUsername: quoteUsername, quotedOriginalName: quoteName,  quotedOriginalURL : quoteProfileURL)
                                 tweets.append(newTweet)
                             }
                         }
@@ -58,7 +60,7 @@ class TweetJSONParser {
                     else {
                     
                     //Neither Retweet or Quote
-                    let newTweet = Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: nil, retweetOriginalText: nil, retweetOriginalUsername: nil, reweetOriginalName: nil, quoteStatus: nil, quotedTweet: nil, quotedOriginalUsername: nil, quotedOriginalName: nil)
+                    let newTweet = Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: nil, retweetOriginalText: nil, retweetOriginalUsername: nil, reweetOriginalName: nil,retweetOrginalURL : nil, quoteStatus: nil, quotedTweet: nil, quotedOriginalUsername: nil, quotedOriginalName: nil,  quotedOriginalURL : nil)
                     
                     tweets.append(newTweet)
                   }
