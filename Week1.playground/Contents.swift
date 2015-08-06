@@ -73,25 +73,22 @@ var backToString = String(toArray)
 
 
 //MARK: Data Structure Thursday
-class Queue {
+class Queue <T>{
   
-  private var arrayQueue : [String] = []
+  private var arrayQueue = [T]()
   
-  init(first : String) {
+  init(first : T) {
     arrayQueue.append(first)
   }
   
-  func queue(newItem : String){
+  func queue(newItem : T){
     arrayQueue.insert(newItem, atIndex: 0)
   }
   
-  func dequeue() -> String {
-    let dequeueObject : String = arrayQueue.removeLast()
+  func dequeue() -> T {
+    let dequeueObject : T = arrayQueue.removeLast()
     return dequeueObject
   }
-  
-  
-  
 }
 
 var queueTest = Queue(first: "First")
