@@ -45,13 +45,15 @@ for i in 0..<stringToArray.count {
 println(count)
 
 //MARK: Thursday
-let removeX = "xJxexfxfx"
+let removeX = "xJxexxxxfxxxfxxxfxxx"
 var toArray = Array(removeX)
 
-for i in 0..<toArray.count {
-  println(i)
+var i = 0
+
+while i <= toArray.count{
   if i == 0 {
     //Continue
+    i++
   } else if i == toArray.count - 1 {
     //End of String
     break
@@ -59,6 +61,9 @@ for i in 0..<toArray.count {
     //remove x character
     if toArray[i] == "x" {
       toArray.removeAtIndex(i)
+      continue
+    } else {
+      i++
     }
   }
 }
