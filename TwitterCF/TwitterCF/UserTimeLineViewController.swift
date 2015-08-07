@@ -13,11 +13,15 @@ class UserTimeLineViewController: UIViewController {
   var tweet : Tweet?
   var tweets : [Tweet]?
 
+    @IBOutlet weak var tableView: UITableView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
 
         // Do any additional setup after loading the view.
-      if let tweets = tweets {
+        
         TwitterService.tweetsFromOtherTimeLine(tweet!.username) { (error, tweets) -> () in
           if let error = error {
             
@@ -25,11 +29,12 @@ class UserTimeLineViewController: UIViewController {
             if let tweets = tweets {
               NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 self.tweets = tweets
+                self.tableView.reloadData()
               })
             }
           }
         }
-      }
+     
   }
   
 
@@ -49,4 +54,34 @@ class UserTimeLineViewController: UIViewController {
     }
     */
 
+}
+
+extension UserTimeLineViewController : UITableViewDataSource {
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if let tweets = tweets {
+            return tweets.count
+        }else {
+            return 1
+        }
+    }
+    
+    
+    
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+        
+        if let tweets = tweets {
+            let tweet = tweets[indexPath.row]
+            
+            cell.tweetText?.text = tweet.text
+            cell.profileName?.text = "@\(tweet.username)"
+            cell.profileUsername?.text = tweet.name
+            cell.profileImage?.setImage(tweet.getprofileImage(), forState: .Normal)
+        }
+        
+        
+        return cell
+    }
+    
+    
 }

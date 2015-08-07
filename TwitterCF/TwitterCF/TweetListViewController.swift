@@ -17,6 +17,9 @@ class TweetListViewController: UIViewController {
   override func viewDidLoad() {
     super.viewDidLoad()
     
+    //Register Xib
+    tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
+    
     tableView.estimatedRowHeight = 100
     tableView.rowHeight = UITableViewAutomaticDimension
     
@@ -82,7 +85,7 @@ extension TweetListViewController : UITableViewDataSource {
   
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("PostCell", forIndexPath: indexPath) as! TweetCell
+    let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
     
     let tweet = tweets[indexPath.row]
     

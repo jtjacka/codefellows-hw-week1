@@ -17,6 +17,7 @@ class TwitterService {
   var account : ACAccount?
   var lastRefreshTime : Double?
   var oldRefreshTime : Double?
+  var user : User?
   
   private init() {}
   
@@ -71,6 +72,37 @@ class TwitterService {
       }
     }
   }
+    
+    //Get Authenticated User Data
+    class func getAuthUserData() {
+        
+        
+        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json"), parameters: nil)
+        request.account = self.SharedService.account
+        
+        request.performRequestWithHandler { (data, response, error) -> Void in
+            if let error = error {
+                //Execute completion handler
+                println("AuthUser Data Error")
+            } else {
+                switch response.statusCode {
+                case 200...299:
+                    var error : NSError?
+                    if let userData = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as? [String : AnyObject]{
+                        let user = TweetJSONParser.userFromData(userData)
+                    }
+                    
+                case 400...499:
+                    println("400..499 error")
+                case 500...599:
+                    println("500..599 error")
+                default:
+                    println("Unknown get user error")
+                }
+                
+            }
+        }
+    }
   
   //Refresh New Tweets
   class func refreshNewTweets() {

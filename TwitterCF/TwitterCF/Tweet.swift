@@ -17,14 +17,10 @@ struct Tweet {
   var profileImage : UIImage?
   let retweetBool : Bool?
   let retweetOriginalText : String?
-  let retweetOriginalUsername : String?
-  let reweetOriginalName : String?
-  let retweetOrginalURL : String?
+  let retweetUser : User?
   let quoteStatus : Bool?
   let quotedTweet : String?
-  let quotedOriginalUsername : String?
-  let quotedOriginalName : String?
-  let quotedOriginalURL : String?
+  let quotedUser : User?
   
   func getprofileImage() -> UIImage? {
     var image : UIImage

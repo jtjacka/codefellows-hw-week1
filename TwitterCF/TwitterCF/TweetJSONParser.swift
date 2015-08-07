@@ -36,31 +36,30 @@ class TweetJSONParser {
                     let retweetedBool = true
                     if let retweetText = retweetObject["text"] as? String,
                       retweetUser = retweetObject["user"] as? [String : AnyObject] {
-                        if let retweetUsername = retweetUser["name"] as? String,
-                          retweetName = retweetUser["screen_name"] as? String,
-                        retweetProfileURL = retweetUser["profile_image_url"] as? String {
-                          let newTweet =  Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: retweetedBool, retweetOriginalText: retweetText, retweetOriginalUsername: retweetUsername, reweetOriginalName: retweetName,retweetOrginalURL : retweetProfileURL, quoteStatus: nil, quotedTweet: nil, quotedOriginalUsername: nil, quotedOriginalName: nil,  quotedOriginalURL : nil)
+                        
+                         let retweetUser = userFromData(retweetUser)
+                            
+                        let newTweet =  Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: retweetedBool, retweetOriginalText: retweetText, retweetUser: retweetUser, quoteStatus: nil, quotedTweet: nil, quotedUser : nil)
                             tweets.append(newTweet)
-                        }
+                        
                     }
                   } else if let quoteStatus = tweetObject["is_quote_status"] as? Bool where quoteStatus == true {
                       if let quoteData = tweetObject["quoted_status"] as? [String : AnyObject] {
                         if let quoteText = quoteData["text"] as? String,
                           let quoteUser = quoteData["user"] as? [String : AnyObject] {
-                            if let quoteName = quoteUser["name"] as? String,
-                              let quoteUsername = quoteUser["screen_name"] as? String,
-                            quoteProfileURL = quoteUser["profile_image_url"] as? String{
-                                let newTweet =  Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: nil, retweetOriginalText: nil, retweetOriginalUsername: nil, reweetOriginalName: nil, retweetOrginalURL : nil,quoteStatus: quoteStatus, quotedTweet: quoteText, quotedOriginalUsername: quoteUsername, quotedOriginalName: quoteName,  quotedOriginalURL : quoteProfileURL)
+                            
+                            let quotedUser = userFromData(quoteUser)
+                            
+                            let newTweet =  Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: nil, retweetOriginalText: nil, retweetUser: nil,quoteStatus: quoteStatus, quotedTweet: quoteText, quotedUser: quotedUser)
                                 tweets.append(newTweet)
                             }
                         }
-                        
-                      }
+                    
                     } //Add Retweet Data for Retweeted Tweets
                     else {
                     
                     //Neither Retweet or Quote
-                    let newTweet = Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: nil, retweetOriginalText: nil, retweetOriginalUsername: nil, reweetOriginalName: nil,retweetOrginalURL : nil, quoteStatus: nil, quotedTweet: nil, quotedOriginalUsername: nil, quotedOriginalName: nil,  quotedOriginalURL : nil)
+                let newTweet = Tweet(text: text, username: username, name: name, id: id, profileImageURL: profileImageURL, profileImage: nil, retweetBool: nil, retweetOriginalText: nil, retweetUser: nil, quoteStatus: nil, quotedTweet: nil, quotedUser : nil)
                     
                     tweets.append(newTweet)
                   }
@@ -78,4 +77,16 @@ class TweetJSONParser {
     
     return nil
   }
+    
+    func userFromData(user : [String : AnyObject]) -> User? {
+        if let name = user["name"] as? String,
+        userName = user["screen_name"] as? String,
+        profileImageURL = user["profile_image_url"] as? String,
+        profileBackgroundURL = user["profile_background_image_url"] as? String,
+        id = user["id"] as? String{
+            return User(id: id, name: name, screenName: userName, profileImageURL: profileImageURL, profileBackgroundURL: profileBackgroundURL)
+        }
+        
+        return nil
+    }
 }
