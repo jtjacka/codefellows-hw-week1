@@ -24,12 +24,12 @@ class TweetDetailViewController: UIViewController {
       //Determine which tweet to display
       if (tweet.quoteStatus == true) {
         tweetText?.text = tweet.quotedTweet
-        profileUsername?.text = "@\(tweet.quotedOriginalUsername)"
-        profileName?.text = tweet.quotedOriginalName
+        profileUsername?.text = "@\(tweet.quotedUser?.screenName)"
+        profileName?.text = tweet.quotedUser?.name
       } else if(tweet.retweetBool == true) {
         tweetText?.text = tweet.retweetOriginalText
-        profileUsername?.text = "@\(tweet.retweetOriginalUsername)"
-        profileName?.text = tweet.reweetOriginalName
+        profileUsername?.text = "@\(tweet.retweetUser?.screenName)"
+        profileName?.text = tweet.retweetUser?.name
       }else {
         tweetText?.text = tweet.text
         profileUsername?.text = "@\(tweet.username)"

@@ -78,7 +78,7 @@ class TweetJSONParser {
     return nil
   }
     
-    func userFromData(user : [String : AnyObject]) -> User? {
+    class func userFromData(user : [String : AnyObject]) -> User? {
         if let name = user["name"] as? String,
         userName = user["screen_name"] as? String,
         profileImageURL = user["profile_image_url"] as? String,

@@ -22,7 +22,7 @@ class UserTimeLineViewController: UIViewController {
 
         // Do any additional setup after loading the view.
         
-        TwitterService.tweetsFromOtherTimeLine(tweet!.username) { (error, tweets) -> () in
+        TwitterService.tweetsFromOtherTimeLine(tweet!.name) { (error, tweets) -> () in
           if let error = error {
             
           } else  {
