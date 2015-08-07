@@ -159,7 +159,7 @@
                                 <animations/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="q7Z-Lt-9xE">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="238"/>
+                                    <rect key="frame" x="0.0" y="64" width="600" height="210"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <visualEffectView opaque="NO" contentMode="scaleAspectFit" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Fdy-4d-OPR">
@@ -176,10 +176,11 @@
                                                 <animations/>
                                             </view>
                                             <animations/>
-                                            <blurEffect style="light"/>
+                                            <color key="tintColor" red="1" green="0.80000000000000004" blue="0.20000000000000001" alpha="1" colorSpace="calibratedRGB"/>
+                                            <blurEffect style="dark"/>
                                         </visualEffectView>
                                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Twitter-icon.png" translatesAutoresizingMaskIntoConstraints="NO" id="Jq1-eP-EHK">
-                                            <rect key="frame" x="240" y="59" width="120" height="120"/>
+                                            <rect key="frame" x="240" y="16" width="120" height="120"/>
                                             <animations/>
                                             <constraints>
                                                 <constraint firstAttribute="height" constant="120" id="gcr-B3-Iy3"/>
@@ -187,14 +188,14 @@
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Hc5-3O-SQz">
-                                            <rect key="frame" x="243" y="187" width="114" height="29"/>
+                                            <rect key="frame" x="243" y="144" width="114" height="29"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="24"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sht-FG-X77">
-                                            <rect key="frame" x="258" y="212" width="84" height="21"/>
+                                            <rect key="frame" x="258" y="169" width="84" height="21"/>
                                             <animations/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                                             <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -206,6 +207,7 @@
                                     <constraints>
                                         <constraint firstItem="Hc5-3O-SQz" firstAttribute="top" secondItem="Jq1-eP-EHK" secondAttribute="bottom" constant="8" id="7Ge-IR-WCK"/>
                                         <constraint firstItem="Hc5-3O-SQz" firstAttribute="bottom" secondItem="sht-FG-X77" secondAttribute="top" constant="4" id="AnM-aC-hB0"/>
+                                        <constraint firstItem="Jq1-eP-EHK" firstAttribute="top" secondItem="q7Z-Lt-9xE" secondAttribute="topMargin" constant="8" id="KFD-hP-Tgw"/>
                                         <constraint firstItem="sht-FG-X77" firstAttribute="top" secondItem="Jq1-eP-EHK" secondAttribute="bottom" constant="8" id="MMC-y3-sRJ"/>
                                         <constraint firstAttribute="centerY" secondItem="Jq1-eP-EHK" secondAttribute="centerY" id="bCu-xQ-en0"/>
                                         <constraint firstAttribute="centerX" secondItem="Jq1-eP-EHK" secondAttribute="centerX" id="fef-SX-AjG"/>
@@ -214,6 +216,7 @@
                                     </constraints>
                                     <variation key="default">
                                         <mask key="constraints">
+                                            <exclude reference="bCu-xQ-en0"/>
                                             <exclude reference="MMC-y3-sRJ"/>
                                         </mask>
                                     </variation>
@@ -235,6 +238,7 @@
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="People" id="lwe-2G-PjA"/>
+                    <navigationItem key="navigationItem" title="Profile" id="4Tf-v8-8zT"/>
                     <connections>
                         <outlet property="backgroundImage" destination="wnW-Q1-CjU" id="jdJ-11-Yrn"/>
                         <outlet property="name" destination="Hc5-3O-SQz" id="M4b-qX-quJ"/>
@@ -246,6 +250,29 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oa2-YS-frA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1084" y="1231"/>
+        </scene>
+        <!--Item-->
+        <scene sceneID="2fd-4m-2aa">
+            <objects>
+                <navigationController id="Ajo-4I-evI" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="5wv-6m-LYZ"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="yTi-mG-ypl">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <animations/>
+                        <color key="barTintColor" red="0.0" green="0.67450980390000004" blue="0.92941176469999998" alpha="0.50504210989999998" colorSpace="calibratedRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="23"/>
+                            <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="iSZ-Of-etO" kind="relationship" relationship="rootViewController" id="GU2-sf-EAs"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0FF-d6-mh2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="334" y="1231"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="Udu-cB-t3G">
@@ -260,7 +287,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="oPs-RU-KkT" kind="relationship" relationship="viewControllers" id="1m6-gH-H1h"/>
-                        <segue destination="iSZ-Of-etO" kind="relationship" relationship="viewControllers" id="C40-k5-cbm"/>
+                        <segue destination="Ajo-4I-evI" kind="relationship" relationship="viewControllers" id="y1D-PJ-nVO"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="uAG-dC-dZd" userLabel="First Responder" sceneMemberID="firstResponder"/>
