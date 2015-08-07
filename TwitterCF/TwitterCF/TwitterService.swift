@@ -49,7 +49,7 @@ class TwitterService {
   
   //Tweets from other User Timeline
   class func tweetsFromOtherTimeLine(username : String, completion: (String?, [Tweet]?) -> () ) {
-    let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json?username=\(username)"), parameters: nil)
+    let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/user_timeline.json?screen_name=\(username)"), parameters: nil)
     request.account = self.SharedService.account
     
     request.performRequestWithHandler { (data, response, error) -> Void in
@@ -57,6 +57,7 @@ class TwitterService {
         //Execute completion handler
         completion("Request Error", nil)
       } else {
+        println("Tweets from other time line response code \(response.statusCode)")
         switch response.statusCode {
         case 200...299:
           let tweets = TweetJSONParser.TweetFromJSONData(data)
@@ -103,6 +104,9 @@ class TwitterService {
             }
         }
     }
+  
+  //Get User Banner
+  
   
   //Refresh New Tweets
   class func refreshNewTweets() {

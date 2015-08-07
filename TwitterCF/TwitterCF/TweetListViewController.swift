@@ -49,6 +49,7 @@ class TweetListViewController: UIViewController {
     }
     
     tableView.dataSource = self
+    tableView.delegate = self
     
   }
 
@@ -60,16 +61,16 @@ class TweetListViewController: UIViewController {
   //Followed guide here:
   //http://www.codingexplorer.com/segue-uitableviewcell-taps-swift/
   override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "showTweetDetail" {
+    if segue.identifier == "ShowTweetDetail" {
       if let destination = segue.destinationViewController as? TweetDetailViewController {
         if let tweetIndex = tableView.indexPathForSelectedRow()?.row {
           destination.tweet = tweets[tweetIndex]
         }
       }
-    } else if segue.identifier == "showProfile" {
+    } else if segue.identifier == "ShowProfile" {
       if let destination = segue.destinationViewController as? UserTimeLineViewController {
         if let tweetIndex = tableView.indexPathForSelectedRow()?.row {
-          //destination.tweet = tweets[tweetIndex]
+          //set which user to send to profile
         }
       }
     }
@@ -85,14 +86,16 @@ extension TweetListViewController : UITableViewDataSource {
   
   
   
+  
+  
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
     
     let tweet = tweets[indexPath.row]
     
     cell.tweetText?.text = tweet.text
-    cell.profileUsername?.text = "@\(tweet.username)"
-    cell.profileName?.text = tweet.name
+    cell.profileUsername?.text = "@\(tweet.user.screenName)"
+    cell.profileName?.text = tweet.user.name
     cell.profileImage?.setImage(tweet.getprofileImage(), forState: .Normal)
     
     tableView.estimatedRowHeight = 100
@@ -103,4 +106,13 @@ extension TweetListViewController : UITableViewDataSource {
   }
   
 
+}
+
+extension TweetListViewController : UITableViewDelegate {
+  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    performSegueWithIdentifier("ShowTweetDetail", sender: self)
+    
+    tableView.deselectRowAtIndexPath(indexPath, animated: true)
+    
+  }
 }

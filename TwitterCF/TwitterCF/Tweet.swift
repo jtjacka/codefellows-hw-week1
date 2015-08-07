@@ -10,11 +10,7 @@ import UIKit
 
 struct Tweet {
   let text : String
-  let username : String
-  let name : String
-  let id : String
-  let profileImageURL : String
-  var profileImage : UIImage?
+  let user : User
   let retweetBool : Bool?
   let retweetOriginalText : String?
   let retweetUser : User?
@@ -25,7 +21,7 @@ struct Tweet {
   func getprofileImage() -> UIImage? {
     var image : UIImage
     
-    var newUrl = self.profileImageURL.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    var newUrl = self.user.profileImageURL.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
     
     var imageURL = NSURL(string: newUrl)
     

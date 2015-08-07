@@ -53,7 +53,6 @@ class UserTimeLineViewController : UIViewController {
       
       
       tableView.dataSource = self
-      
 
      
   }
@@ -73,17 +72,18 @@ extension UserTimeLineViewController : UITableViewDataSource {
   }
   
   
-  
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
     
     let tweet = tweets[indexPath.row]
     
     cell.tweetText?.text = tweet.text
-    cell.profileUsername?.text = "@\(tweet.username)"
-    cell.profileName?.text = tweet.name
+    cell.profileUsername?.text = "@\(tweet.user.screenName)"
+    cell.profileName?.text = tweet.user.name
     cell.profileImage?.setImage(tweet.getprofileImage(), forState: .Normal)
     
+    tableView.estimatedRowHeight = 100
+    tableView.rowHeight = UITableViewAutomaticDimension
     
     
     return cell
