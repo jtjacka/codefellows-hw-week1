@@ -20,8 +20,8 @@ class TweetListViewController: UIViewController {
     //Register Xib
     tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
     
-    tableView.estimatedRowHeight = 100
-    tableView.rowHeight = UITableViewAutomaticDimension
+   
+    
     
     LoginService.loginForTwitter { (error, account) -> (Void) in
       if let error = error {
@@ -29,6 +29,7 @@ class TweetListViewController: UIViewController {
       } else {
         if let account = account {
           TwitterService.SharedService.account = account
+          TwitterService.getAuthUserData()
           TwitterService.tweetsFromHomeTimeline({ (error, tweets) -> () in
             if let error = error {
               println(error)
@@ -68,7 +69,7 @@ class TweetListViewController: UIViewController {
     } else if segue.identifier == "showProfile" {
       if let destination = segue.destinationViewController as? UserTimeLineViewController {
         if let tweetIndex = tableView.indexPathForSelectedRow()?.row {
-          destination.tweet = tweets[tweetIndex]
+          //destination.tweet = tweets[tweetIndex]
         }
       }
     }
@@ -90,10 +91,12 @@ extension TweetListViewController : UITableViewDataSource {
     let tweet = tweets[indexPath.row]
     
     cell.tweetText?.text = tweet.text
-    cell.profileName?.text = "@\(tweet.username)"
-    cell.profileUsername?.text = tweet.name
+    cell.profileUsername?.text = "@\(tweet.username)"
+    cell.profileName?.text = tweet.name
     cell.profileImage?.setImage(tweet.getprofileImage(), forState: .Normal)
     
+    tableView.estimatedRowHeight = 100
+    tableView.rowHeight = UITableViewAutomaticDimension
     
     
     return cell

@@ -8,23 +8,38 @@
 
 import UIKit
 
-class UserTimeLineViewController: UIViewController {
-  
-  var tweet : Tweet?
-  var tweets : [Tweet]?
+class UserTimeLineViewController : UIViewController {
 
-    @IBOutlet weak var tableView: UITableView!
-    
+  @IBOutlet weak var tableView: UITableView!
+  
+  @IBOutlet weak var backgroundImage: UIImageView!
+  @IBOutlet weak var profileImage: UIImageView!
+  @IBOutlet weak var name: UILabel!
+  @IBOutlet weak var username: UILabel!
+  
+  
+  var user : User?
+  var tweets : [Tweet] = []
+  
     override func viewDidLoad() {
         super.viewDidLoad()
         
         tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
+      
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
 
         // Do any additional setup after loading the view.
+      if let user = TwitterService.SharedService.user {
+        profileImage.image = user.getprofileImage()
+        backgroundImage.image = user.getBackgroundImage()
+        name.text = user.name
+        username.text = "@\(user.screenName)"
         
-        TwitterService.tweetsFromOtherTimeLine(tweet!.name) { (error, tweets) -> () in
+        
+        TwitterService.tweetsFromOtherTimeLine(user.screenName) { (error, tweets) -> () in
           if let error = error {
-            
+            //meh
           } else  {
             if let tweets = tweets {
               NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -34,6 +49,12 @@ class UserTimeLineViewController: UIViewController {
             }
           }
         }
+      }
+      
+      
+      tableView.dataSource = self
+      
+
      
   }
   
@@ -42,46 +63,31 @@ class UserTimeLineViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
 }
 
 extension UserTimeLineViewController : UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let tweets = tweets {
-            return tweets.count
-        }else {
-            return 1
-        }
-    }
+  
+  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    return tweets.count
+  }
+  
+  
+  
+  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+    
+    let tweet = tweets[indexPath.row]
+    
+    cell.tweetText?.text = tweet.text
+    cell.profileUsername?.text = "@\(tweet.username)"
+    cell.profileName?.text = tweet.name
+    cell.profileImage?.setImage(tweet.getprofileImage(), forState: .Normal)
     
     
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
-        
-        if let tweets = tweets {
-            let tweet = tweets[indexPath.row]
-            
-            cell.tweetText?.text = tweet.text
-            cell.profileName?.text = "@\(tweet.username)"
-            cell.profileUsername?.text = tweet.name
-            cell.profileImage?.setImage(tweet.getprofileImage(), forState: .Normal)
-        }
-        
-        
-        return cell
-    }
-    
-    
+    return cell
+  }
+  
+  
 }

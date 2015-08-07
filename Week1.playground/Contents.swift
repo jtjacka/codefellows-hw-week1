@@ -98,3 +98,12 @@ queueTest.dequeue()
 queueTest
 
 
+//Remove _normal from address
+
+var url = "http://pbs.twimg.com/profile_images/420664623537205248/2EOCvLZW_normal.jpeg"
+
+url = url.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+
+print(url)
+
+

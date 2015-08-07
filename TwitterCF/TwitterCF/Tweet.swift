@@ -25,7 +25,11 @@ struct Tweet {
   func getprofileImage() -> UIImage? {
     var image : UIImage
     
-    var imageURL = NSURL(string: self.profileImageURL)
+    var newUrl = self.profileImageURL.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    
+    var imageURL = NSURL(string: newUrl)
+    
+    
     if let imageURL = imageURL {
       if let imageData = NSData(contentsOfURL: imageURL),
         image = UIImage(data: imageData) {
@@ -36,6 +40,8 @@ struct Tweet {
     
     return nil
   }
+  
+  
 }
 
 

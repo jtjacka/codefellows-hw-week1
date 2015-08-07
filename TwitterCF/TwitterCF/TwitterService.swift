@@ -90,10 +90,10 @@ class TwitterService {
                     var error : NSError?
                     if let userData = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as? [String : AnyObject]{
                         let user = TweetJSONParser.userFromData(userData)
+                      TwitterService.SharedService.user = user
                     }
-                    
                 case 400...499:
-                    println("400..499 error")
+                    println("400..499 error Status code:\(response.statusCode)")
                 case 500...599:
                     println("500..599 error")
                 default:

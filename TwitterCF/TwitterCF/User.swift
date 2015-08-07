@@ -15,5 +15,39 @@ struct User {
     let screenName : String
     let profileImageURL : String
     let profileBackgroundURL : String
+  
+  func getprofileImage() -> UIImage? {
+    var image : UIImage
     
+    var newUrl = self.profileImageURL.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    
+    var imageURL = NSURL(string: newUrl)
+    
+    
+    if let imageURL = imageURL {
+      if let imageData = NSData(contentsOfURL: imageURL),
+        image = UIImage(data: imageData) {
+          return image
+      }
+      
+    }
+    
+    return nil
+  }
+  
+  func getBackgroundImage() -> UIImage? {
+    var image : UIImage
+    
+    var imageURL = NSURL(string: self.profileBackgroundURL)
+    if let imageURL = imageURL {
+      if let imageData = NSData(contentsOfURL: imageURL),
+        image = UIImage(data: imageData) {
+          return image
+      }
+      
+    }
+    
+    return nil
+  }
+  
 }

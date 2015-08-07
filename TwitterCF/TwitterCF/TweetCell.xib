@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7706" systemVersion="15A178w" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7703"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -14,54 +14,69 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="User Name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rhq-RZ-QfX">
-                        <rect key="frame" x="116" y="8" width="86" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <rect key="frame" x="116" y="8" width="95" height="24"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="20"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3X6-6a-3Dd">
                         <rect key="frame" x="8" y="42" width="100" height="100"/>
+                        <animations/>
                         <constraints>
                             <constraint firstAttribute="width" constant="100" id="OGB-UD-Xty"/>
                             <constraint firstAttribute="height" constant="100" id="lnp-67-cAP"/>
                         </constraints>
-                        <state key="normal" title="Button" image="Twitter-icon.png">
-                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                        </state>
+                        <state key="normal" image="Twitter-icon.png"/>
+                        <connections>
+                            <action selector="pressProfileImage:" destination="Pu9-15-B10" eventType="touchUpInside" id="2Yj-wP-dkA"/>
+                        </connections>
                     </button>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNo-zY-EAM">
-                        <rect key="frame" x="210" y="8" width="89.5" height="20.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGL-gY-exE">
+                        <rect key="frame" x="116" y="40" width="374" height="135"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qGL-gY-exE">
-                        <rect key="frame" x="116" y="37" width="374" height="138.5"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="@username" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lNo-zY-EAM">
+                        <rect key="frame" x="219" y="9" width="84" height="21"/>
+                        <animations/>
+                        <fontDescription key="fontDescription" name="HelveticaNeue-Thin" family="Helvetica Neue" pointSize="17"/>
+                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
+                <animations/>
                 <constraints>
                     <constraint firstItem="3X6-6a-3Dd" firstAttribute="leading" secondItem="KIR-fj-RSy" secondAttribute="leadingMargin" id="4ts-NB-ycI"/>
                     <constraint firstItem="qGL-gY-exE" firstAttribute="bottom" secondItem="KIR-fj-RSy" secondAttribute="bottomMargin" id="FdT-4e-HhA"/>
                     <constraint firstAttribute="centerY" secondItem="3X6-6a-3Dd" secondAttribute="centerY" constant="-0.25" id="Ng6-kg-Ruw"/>
+                    <constraint firstItem="Rhq-RZ-QfX" firstAttribute="centerY" secondItem="lNo-zY-EAM" secondAttribute="centerY" constant="0.5" id="Q2M-av-nQg"/>
                     <constraint firstItem="lNo-zY-EAM" firstAttribute="leading" secondItem="Rhq-RZ-QfX" secondAttribute="trailing" constant="8" id="SYF-je-MK0"/>
                     <constraint firstItem="lNo-zY-EAM" firstAttribute="top" secondItem="KIR-fj-RSy" secondAttribute="topMargin" id="TxY-W2-rP5"/>
                     <constraint firstItem="qGL-gY-exE" firstAttribute="top" secondItem="Rhq-RZ-QfX" secondAttribute="bottom" constant="8" id="aMO-05-hzi"/>
                     <constraint firstItem="qGL-gY-exE" firstAttribute="trailing" secondItem="KIR-fj-RSy" secondAttribute="trailingMargin" id="edh-cA-kk9"/>
+                    <constraint firstItem="lNo-zY-EAM" firstAttribute="leading" secondItem="Rhq-RZ-QfX" secondAttribute="trailing" constant="8" id="gCh-rL-L6a"/>
                     <constraint firstItem="qGL-gY-exE" firstAttribute="leading" secondItem="3X6-6a-3Dd" secondAttribute="trailing" constant="8" id="qzH-Bd-rRV"/>
                     <constraint firstItem="Rhq-RZ-QfX" firstAttribute="leading" secondItem="3X6-6a-3Dd" secondAttribute="trailing" constant="8" id="svt-Ou-NwV"/>
                     <constraint firstItem="Rhq-RZ-QfX" firstAttribute="top" secondItem="KIR-fj-RSy" secondAttribute="topMargin" id="zIg-uS-sc3"/>
                 </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="SYF-je-MK0"/>
+                        <exclude reference="TxY-W2-rP5"/>
+                    </mask>
+                </variation>
             </tableViewCellContentView>
+            <animations/>
             <connections>
                 <outlet property="profileImage" destination="3X6-6a-3Dd" id="scR-TF-u8a"/>
                 <outlet property="profileName" destination="Rhq-RZ-QfX" id="zKy-28-Tt4"/>
                 <outlet property="profileUsername" destination="lNo-zY-EAM" id="oYy-Jo-g6d"/>
                 <outlet property="tweetText" destination="qGL-gY-exE" id="oHv-l2-lno"/>
             </connections>
-            <point key="canvasLocation" x="685" y="398"/>
+            <point key="canvasLocation" x="778" y="391"/>
         </tableViewCell>
     </objects>
     <resources>

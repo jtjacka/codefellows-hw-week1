@@ -15,6 +15,9 @@ class TweetCell: UITableViewCell {
     @IBOutlet weak var profileName: UILabel!
     @IBOutlet weak var profileUsername: UILabel!
 
+  @IBAction func pressProfileImage(sender: AnyObject) {
+    
+  }
 
 
 }

@@ -83,7 +83,7 @@ class TweetJSONParser {
         userName = user["screen_name"] as? String,
         profileImageURL = user["profile_image_url"] as? String,
         profileBackgroundURL = user["profile_background_image_url"] as? String,
-        id = user["id"] as? String{
+        id = user["id_str"] as? String{
             return User(id: id, name: name, screenName: userName, profileImageURL: profileImageURL, profileBackgroundURL: profileBackgroundURL)
         }
         
