@@ -26,7 +26,7 @@ class TweetJSONParser {
           if let text = tweetObject["text"] as? String,
             id  = tweetObject["id_str"] as? String,
             user = tweetObject["user"] as? [String : AnyObject] {
-                  
+              
               if let user = userFromData(user) {
                 //Add Retweet Data for Quoted Tweets
                 if let retweetObject  = tweetObject["retweeted_status"] as? [String : AnyObject] {
@@ -36,7 +36,7 @@ class TweetJSONParser {
                       
                       let retweetUser = userFromData(retweetUser)
                       
-                      let newTweet =  Tweet(text: text, user: user, retweetBool: retweetedBool, retweetOriginalText: retweetText, retweetUser: retweetUser, quoteStatus: nil, quotedTweet: nil, quotedUser : nil)
+                      let newTweet =  Tweet(text: text, id: id, user: user, retweetBool: retweetedBool, retweetOriginalText: retweetText, retweetUser: retweetUser, quoteStatus: nil, quotedTweet: nil, quotedUser : nil)
                       tweets.append(newTweet)
                       
                   }
@@ -47,7 +47,7 @@ class TweetJSONParser {
                         
                         let quotedUser = userFromData(quoteUser)
                         
-                        let newTweet =  Tweet(text: text, user: user, retweetBool: nil, retweetOriginalText: nil, retweetUser: nil,quoteStatus: quoteStatus, quotedTweet: quoteText, quotedUser: quotedUser)
+                        let newTweet =  Tweet(text: text, id: id, user: user, retweetBool: nil, retweetOriginalText: nil, retweetUser: nil,quoteStatus: quoteStatus, quotedTweet: quoteText, quotedUser: quotedUser)
                         tweets.append(newTweet)
                     }
                   }
@@ -56,7 +56,7 @@ class TweetJSONParser {
                 else {
                   
                   //Neither Retweet or Quote
-                  let newTweet = Tweet(text: text, user: user, retweetBool: nil, retweetOriginalText: nil, retweetUser: nil, quoteStatus: nil, quotedTweet: nil, quotedUser : nil)
+                  let newTweet = Tweet(text: text, id: id, user: user, retweetBool: nil, retweetOriginalText: nil, retweetUser: nil, quoteStatus: nil, quotedTweet: nil, quotedUser : nil)
                   
                   tweets.append(newTweet)
                 }
@@ -66,6 +66,8 @@ class TweetJSONParser {
 
           }
         }
+        
+        TwitterService.SharedService.sinceID = tweets[0].id
         return tweets
     }
     

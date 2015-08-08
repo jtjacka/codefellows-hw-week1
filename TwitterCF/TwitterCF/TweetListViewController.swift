@@ -11,6 +11,8 @@ import UIKit
 class TweetListViewController: UIViewController {
 
   @IBOutlet weak var tableView: UITableView!
+   var refreshControl = UIRefreshControl()
+  
   
   var tweets = [Tweet]()
   
@@ -20,7 +22,12 @@ class TweetListViewController: UIViewController {
     //Register Xib
     tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
     
+   //UI Refresh
    
+    
+    self.refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
+    
+    tableView.addSubview(refreshControl)
     
     
     LoginService.loginForTwitter { (error, account) -> (Void) in
@@ -67,14 +74,30 @@ class TweetListViewController: UIViewController {
           destination.tweet = tweets[tweetIndex]
         }
       }
-    } else if segue.identifier == "ShowProfile" {
-      if let destination = segue.destinationViewController as? UserTimeLineViewController {
-        if let tweetIndex = tableView.indexPathForSelectedRow()?.row {
-          //set which user to send to profile
+    }
+  }
+  
+  
+  func pullToRefresh () {
+    println("Refreshing!")
+    TwitterService.tweetsFromHomeTimeline { (error, tweets) -> () in
+      if let error = error {
+        println(error)
+      } else {
+        if let tweets = tweets {
+          NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+            self.refreshControl.endRefreshing()
+            self.tweets = tweets + self.tweets
+            self.tableView.reloadData()
+          })
         }
       }
     }
   }
+  
+  
+  
+  
   
 }
 

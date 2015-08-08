@@ -19,6 +19,7 @@ class TweetDetailViewController: UIViewController {
   
   var tweet : Tweet?
   var tweets = [Tweet]()
+  var user : User?
   
   
   override func viewWillAppear(animated: Bool) {
@@ -51,10 +52,11 @@ class TweetDetailViewController: UIViewController {
         if let user = tweet.quotedUser {
           
           //Grab TimeLine from Quoted User
-          TwitterService.tweetsFromOtherTimeLine(tweet.user.screenName, completion: { (errorText, tweets) -> () in
+          TwitterService.tweetsFromOtherTimeLine(user.screenName, completion: { (errorText, tweets) -> () in
             if let tweets = tweets {
               NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 self.tweets = tweets
+                self.user = user
                 self.tableView.reloadData()
               })
             }
@@ -70,10 +72,11 @@ class TweetDetailViewController: UIViewController {
         if let user = tweet.retweetUser {
           
           //Grab Timeline for Retweet User
-          TwitterService.tweetsFromOtherTimeLine(tweet.user.screenName, completion: { (errorText, tweets) -> () in
+          TwitterService.tweetsFromOtherTimeLine(user.screenName, completion: { (errorText, tweets) -> () in
             if let tweets = tweets {
               NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                 self.tweets = tweets
+                self.user = user
                 self.tableView.reloadData()
               })
 
@@ -92,6 +95,7 @@ class TweetDetailViewController: UIViewController {
           if let tweets = tweets {
             NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
               self.tweets = tweets
+              self.user = tweet.user
               self.tableView.reloadData()
             })
 
@@ -114,6 +118,15 @@ class TweetDetailViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+  
+  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    if segue.identifier == "ShowProfile" {
+      if let destination = segue.destinationViewController as? UserTimeLineViewController {
+          destination.tweets = tweets
+          destination.user = user
+      }
+    }
+  }
 
 }
 

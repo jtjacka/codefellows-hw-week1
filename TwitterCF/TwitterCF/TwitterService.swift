@@ -15,14 +15,16 @@ class TwitterService {
   static let SharedService = TwitterService()
   
   var account : ACAccount?
-  var lastRefreshTime : Double?
-  var oldRefreshTime : Double?
+  var sinceID : String?
+  var maxID : String?
   var user : User?
   
   private init() {}
   
   //Tweets from Home Timeline
   class func tweetsFromHomeTimeline(completion: (String?, [Tweet]?) -> () ) {
+    
+    
    let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: nil)
     request.account = self.SharedService.account
     

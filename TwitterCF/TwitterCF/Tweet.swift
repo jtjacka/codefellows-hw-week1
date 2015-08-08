@@ -10,6 +10,7 @@ import UIKit
 
 struct Tweet {
   let text : String
+  let id : String
   let user : User
   let retweetBool : Bool?
   let retweetOriginalText : String?

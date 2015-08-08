@@ -21,15 +21,35 @@ class UserTimeLineViewController : UIViewController {
   var user : User?
   var tweets : [Tweet] = []
   
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
+  override func viewDidLoad() {
+    super.viewDidLoad()
+    
+    tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
+    
+    tableView.estimatedRowHeight = 100
+    tableView.rowHeight = UITableViewAutomaticDimension
+    
+    // Do any additional setup after loading the view.
+    if let user = user {
+      profileImage.image = user.getprofileImage()
+      backgroundImage.image = user.getBackgroundImage()
+      name.text = user.name
+      username.text = "@\(user.screenName)"
       
-        tableView.estimatedRowHeight = 100
-        tableView.rowHeight = UITableViewAutomaticDimension
-
-        // Do any additional setup after loading the view.
+      
+      TwitterService.tweetsFromOtherTimeLine(user.screenName) { (error, tweets) -> () in
+        if let error = error {
+          //meh
+        } else  {
+          if let tweets = tweets {
+            NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+              self.tweets = tweets
+              self.tableView.reloadData()
+            })
+          }
+        }
+      }
+    } else {
       if let user = TwitterService.SharedService.user {
         profileImage.image = user.getprofileImage()
         backgroundImage.image = user.getBackgroundImage()
@@ -51,10 +71,12 @@ class UserTimeLineViewController : UIViewController {
         }
       }
       
-      
-      tableView.dataSource = self
-
-     
+    }
+    
+    
+    tableView.dataSource = self
+    
+    
   }
   
 
