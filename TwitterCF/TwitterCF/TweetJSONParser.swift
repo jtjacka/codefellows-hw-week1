@@ -67,7 +67,7 @@ class TweetJSONParser {
           }
         }
         
-        TwitterService.SharedService.sinceID = tweets[0].id
+
         return tweets
     }
     

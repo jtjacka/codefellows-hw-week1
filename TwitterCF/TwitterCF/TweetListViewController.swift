@@ -80,11 +80,17 @@ class TweetListViewController: UIViewController {
   
   func pullToRefresh () {
     println("Refreshing!")
-    TwitterService.tweetsFromHomeTimeline { (error, tweets) -> () in
+    
+    let sinceID = tweets[0].id
+    
+    TwitterService.refreshNewTweets(sinceID) { (error, tweets) -> () in
       if let error = error {
         println(error)
       } else {
         if let tweets = tweets {
+            if tweets.count == 0{
+                println("No new tweets")
+            }
           NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
             self.refreshControl.endRefreshing()
             self.tweets = tweets + self.tweets
