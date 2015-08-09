@@ -135,7 +135,7 @@ class TwitterService {
     class func refreshOldTweets(maxId : String, completion: (String?, [Tweet]?) -> () ) {
         
         
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: nil)
+        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: ["max_id":maxId])
         request.account = self.SharedService.account
         
         request.performRequestWithHandler { (data, response, error) -> Void in

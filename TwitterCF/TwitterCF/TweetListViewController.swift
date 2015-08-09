@@ -112,10 +112,7 @@ extension TweetListViewController : UITableViewDataSource {
   func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return tweets.count
   }
-  
-  
-  
-  
+
   
   func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
@@ -133,7 +130,28 @@ extension TweetListViewController : UITableViewDataSource {
     
     return cell
   }
-  
+    
+    func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
+        if(tweets.count-1 == indexPath.row) {
+           var lastTweetId = tweets[tweets.endIndex-1].id
+            
+            TwitterService.refreshOldTweets(lastTweetId, completion: { (error, tweets) -> () in
+                if let error = error {
+                    println(error)
+                } else {
+                    if let tweets = tweets {
+                        NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                            self.refreshControl.endRefreshing()
+                            self.tweets = self.tweets + tweets
+                            self.tableView.reloadData()
+                        })
+                    }
+                }
+            })
+        }
+        
+    }
+    
 
 }
 
