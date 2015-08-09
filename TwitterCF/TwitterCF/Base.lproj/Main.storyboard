@@ -369,24 +369,6 @@
             </objects>
             <point key="canvasLocation" x="-494" y="787"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="z62-kJ-zRs">
-            <objects>
-                <viewController id="oK1-C9-eTg" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7a8-4T-oYC"/>
-                        <viewControllerLayoutGuide type="bottom" id="yem-lf-x2S"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="2rE-6Z-vWJ">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <animations/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lRs-Hg-hXQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-        </scene>
     </scenes>
     <resources>
         <image name="Twitter-icon.png" width="512" height="512"/>
@@ -394,6 +376,6 @@
         <image name="world_times" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="GU2-sf-EAs"/>
+        <segue reference="xhC-LS-UGg"/>
     </inferredMetricsTieBreakers>
 </document>

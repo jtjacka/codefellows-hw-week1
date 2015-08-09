@@ -57,7 +57,6 @@ class TwitterService {
         //Execute completion handler
         completion("Request Error", nil)
       } else {
-        println("Tweets from other time line response code \(response.statusCode)")
         switch response.statusCode {
         case 200...299:
           let tweets = TweetJSONParser.TweetFromJSONData(data)

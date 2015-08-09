@@ -122,7 +122,7 @@ extension TweetListViewController : UITableViewDataSource {
     cell.tweetText?.text = tweet.text
     cell.profileUsername?.text = "@\(tweet.user.screenName)"
     cell.profileName?.text = tweet.user.name
-    cell.profileImage?.setImage(tweet.getprofileImage(), forState: .Normal)
+    cell.profileImage?.setImage(tweet.user.getprofileImage(), forState: .Normal)
     
     tableView.estimatedRowHeight = 100
     tableView.rowHeight = UITableViewAutomaticDimension
