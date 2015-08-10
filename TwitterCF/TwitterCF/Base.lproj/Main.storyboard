@@ -354,11 +354,13 @@
             <objects>
                 <tabBarController id="V2X-h9-Kob" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
-                    <tabBar key="tabBar" contentMode="scaleAspectFit" barStyle="black" id="4BA-UN-Mse">
+                    <tabBar key="tabBar" contentMode="scaleAspectFit" id="4BA-UN-Mse">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <animations/>
-                        <color key="tintColor" red="0.0" green="0.75096982759999997" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="tintColor" red="0.0" green="0.67450980390000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.0" green="0.67450980390000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" red="0.15103944059999999" green="1" blue="0.75381015070000001" alpha="1" colorSpace="calibratedRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="oPs-RU-KkT" kind="relationship" relationship="viewControllers" id="1m6-gH-H1h"/>
@@ -376,6 +378,7 @@
         <image name="world_times" width="32" height="32"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="xhC-LS-UGg"/>
+        <segue reference="GU2-sf-EAs"/>
     </inferredMetricsTieBreakers>
+    <color key="tintColor" red="0.0" green="0.67450980390000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 </document>

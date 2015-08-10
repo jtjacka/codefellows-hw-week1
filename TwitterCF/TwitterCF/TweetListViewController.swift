@@ -9,131 +9,133 @@
 import UIKit
 
 class TweetListViewController: UIViewController {
-
-  @IBOutlet weak var tableView: UITableView!
-   var refreshControl = UIRefreshControl()
-  
-  
-  var tweets = [Tweet]()
-  
-  override func viewDidLoad() {
-    super.viewDidLoad()
     
-    //Register Xib
-    tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
-    
-   //UI Refresh
-   
-    
-    self.refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
-    
-    tableView.addSubview(refreshControl)
+    @IBOutlet weak var tableView: UITableView!
+    var refreshControl = UIRefreshControl()
     
     
-    LoginService.loginForTwitter { (error, account) -> (Void) in
-      if let error = error {
-        println(error)
-      } else {
-        if let account = account {
-          TwitterService.SharedService.account = account
-          TwitterService.getAuthUserData()
-          TwitterService.tweetsFromHomeTimeline({ (error, tweets) -> () in
+    var tweets = [Tweet]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        //Register Xib
+        tableView.registerNib(UINib(nibName: "TweetCell", bundle: nil), forCellReuseIdentifier: "TweetCell")
+        
+        //UI Refresh
+        
+        
+        self.refreshControl.addTarget(self, action: "pullToRefresh", forControlEvents: UIControlEvents.ValueChanged)
+        
+        tableView.addSubview(refreshControl)
+        
+        
+        LoginService.loginForTwitter { (error, account) -> (Void) in
             if let error = error {
-              println(error)
+                println(error)
             } else {
-              if let tweets = tweets {
-                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-                  self.tweets = tweets
-                  self.tableView.reloadData()
-                })
-              }
+                if let account = account {
+                    TwitterService.SharedService.account = account
+                    TwitterService.getAuthUserData()
+                    TwitterService.tweetsFromHomeTimeline({ (error, tweets) -> () in
+                        if let error = error {
+                            println(error)
+                        } else {
+                            if let tweets = tweets {
+                                NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                                    self.tweets = tweets
+                                    self.tableView.reloadData()
+                                })
+                            }
+                        }
+                    })
+                    
+                }
+                
             }
-          })
-          
         }
         
-      }
+        tableView.dataSource = self
+        tableView.delegate = self
+        
     }
     
-    tableView.dataSource = self
-    tableView.delegate = self
-    
-  }
-
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
-  
-  //Followed guide here:
-  //http://www.codingexplorer.com/segue-uitableviewcell-taps-swift/
-  override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-    if segue.identifier == "ShowTweetDetail" {
-      if let destination = segue.destinationViewController as? TweetDetailViewController {
-        if let tweetIndex = tableView.indexPathForSelectedRow()?.row {
-          destination.tweet = tweets[tweetIndex]
-        }
-      }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
     }
-  }
-  
-  
-  func pullToRefresh () {
-    println("Refreshing!")
     
-    let sinceID = tweets[0].id
-    
-    TwitterService.refreshNewTweets(sinceID) { (error, tweets) -> () in
-      if let error = error {
-        println(error)
-      } else {
-        if let tweets = tweets {
-            if tweets.count == 0{
-                println("No new tweets")
+    //Followed guide here:
+    //http://www.codingexplorer.com/segue-uitableviewcell-taps-swift/
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowTweetDetail" {
+            if let destination = segue.destinationViewController as? TweetDetailViewController {
+                if let tweetIndex = tableView.indexPathForSelectedRow()?.row {
+                    destination.tweet = tweets[tweetIndex]
+                }
             }
-          NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
-            self.refreshControl.endRefreshing()
-            self.tweets = tweets + self.tweets
-            self.tableView.reloadData()
-          })
         }
-      }
     }
-  }
-  
-  
-  
-  
-  
+    
+    
+    func pullToRefresh () {
+        println("Refreshing!")
+        
+        let sinceID = tweets[0].id
+        
+        TwitterService.refreshNewTweets(sinceID) { (error, tweets) -> () in
+            if let error = error {
+                println(error)
+            } else {
+                if let tweets = tweets {
+                    if tweets.count == 0{
+                        println("No new tweets")
+                    }
+                    NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
+                        self.refreshControl.endRefreshing()
+                        self.tweets = tweets + self.tweets
+                        self.tableView.reloadData()
+                    })
+                }
+            }
+        }
+    }
+    
+    
+    
+    
+    
 }
 
 
 extension TweetListViewController : UITableViewDataSource {
-  func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    return tweets.count
-  }
-
-  
-  func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-    let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
-    
-    let tweet = tweets[indexPath.row]
-    
-    cell.tweetText?.text = tweet.text
-    cell.profileUsername?.text = "@\(tweet.user.screenName)"
-    cell.profileName?.text = tweet.user.name
-    cell.profileImage?.setImage(tweet.user.getprofileImage(), forState: .Normal)
-    
-    tableView.estimatedRowHeight = 100
-    tableView.rowHeight = UITableViewAutomaticDimension
+    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return tweets.count
+    }
     
     
-    return cell
-  }
+    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCellWithIdentifier("TweetCell", forIndexPath: indexPath) as! TweetCell
+        
+        let tweet = tweets[indexPath.row]
+        
+        cell.tweetText?.text = tweet.text
+        cell.profileUsername?.text = "@\(tweet.user.screenName)"
+        cell.profileName?.text = tweet.user.name
+        //Lazily load images
+        
+        cell.profileImage?.setImage(tweet.user.getprofileImage(), forState: .Normal)
+        
+        tableView.estimatedRowHeight = 100
+        tableView.rowHeight = UITableViewAutomaticDimension
+        
+        
+        return cell
+    }
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if(tweets.count-1 == indexPath.row) {
-           var lastTweetId = tweets[tweets.endIndex-1].id
+            var lastTweetId = tweets[tweets.endIndex-1].id
             
             TwitterService.refreshOldTweets(lastTweetId, completion: { (error, tweets) -> () in
                 if let error = error {
@@ -149,17 +151,14 @@ extension TweetListViewController : UITableViewDataSource {
                 }
             })
         }
-        
     }
-    
-
 }
 
 extension TweetListViewController : UITableViewDelegate {
-  func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-    performSegueWithIdentifier("ShowTweetDetail", sender: self)
-    
-    tableView.deselectRowAtIndexPath(indexPath, animated: true)
-    
-  }
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("ShowTweetDetail", sender: self)
+        
+        tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        
+    }
 }

@@ -18,7 +18,7 @@ struct User {
   
   func getprofileImage() -> UIImage? {
     var image : UIImage
-    
+    //Grab full size image
     var newUrl = self.profileImageURL.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
     
     var imageURL = NSURL(string: newUrl)
@@ -27,7 +27,10 @@ struct User {
     if let imageURL = imageURL {
       if let imageData = NSData(contentsOfURL: imageURL),
         image = UIImage(data: imageData) {
-          return image
+            //Resize Image
+        var resizedImage = ImageResizer.resizeImage(image)
+            
+            return resizedImage
       }
       
     }
