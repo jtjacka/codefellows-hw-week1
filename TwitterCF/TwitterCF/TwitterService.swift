@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Jeffrey Jacka. All rights reserved.
 //
 
-import Foundation
+import UIKit
 import Accounts
 import Social
 
@@ -16,6 +16,8 @@ class TwitterService {
   
   var account : ACAccount?
   var user : User?
+  var backgroundImages = [String: UIImage]()
+  var profileImages = [String : UIImage]()
   
   private init() {}
   

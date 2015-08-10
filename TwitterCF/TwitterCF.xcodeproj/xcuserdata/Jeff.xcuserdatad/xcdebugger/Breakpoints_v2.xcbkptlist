@@ -58,12 +58,12 @@
                   moduleName = "TwitterCF"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Jeff/Google%20Drive/Projects/CodeFellows/codefellows-hw-week1/TwitterCF/TwitterCF/TweetDetailViewController.swift"
-                  timestampString = "460684273.872594"
+                  timestampString = "460917325.388264"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "94"
                   endingLineNumber = "94"
-                  offsetFromSymbolStart = "11651">
+                  offsetFromSymbolStart = "11949">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
@@ -73,12 +73,12 @@
                   moduleName = "TwitterCF"
                   usesParentBreakpointCondition = "Yes"
                   urlString = "file:///Users/Jeff/Google%20Drive/Projects/CodeFellows/codefellows-hw-week1/TwitterCF/TwitterCF/TweetDetailViewController.swift"
-                  timestampString = "460684273.872922"
+                  timestampString = "460917325.388797"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
                   startingLineNumber = "95"
                   endingLineNumber = "95"
-                  offsetFromSymbolStart = "1567">
+                  offsetFromSymbolStart = "1651">
                </Location>
             </Locations>
          </BreakpointContent>

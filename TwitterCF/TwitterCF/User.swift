@@ -9,12 +9,12 @@
 import UIKit
 
 struct User {
-    
-    let id : String
-    let name : String
-    let screenName : String
-    let profileImageURL : String
-    let profileBackgroundURL : String
+  
+  let id : String
+  let name : String
+  let screenName : String
+  let profileImageURL : String
+  let profileBackgroundURL : String
   
   func getprofileImage() -> UIImage? {
     var image : UIImage
@@ -23,14 +23,21 @@ struct User {
     
     var imageURL = NSURL(string: newUrl)
     
-    
-    if let imageURL = imageURL {
-      if let imageData = NSData(contentsOfURL: imageURL),
-        image = UIImage(data: imageData) {
+    if let image = TwitterService.SharedService.profileImages["\(newUrl)"] {
+      return image
+    } else {
+      if let imageURL = imageURL {
+        if let imageData = NSData(contentsOfURL: imageURL),
+          image = UIImage(data: imageData) {
             //Resize Image
-        var resizedImage = ImageResizer.resizeImage(image)
+            var resizedImage = ImageResizer.resizeImage(image)
+            
+            //Add to resizedImage
+            TwitterService.SharedService.profileImages["\(newUrl)"] = resizedImage
             
             return resizedImage
+        }
+        
       }
       
     }
@@ -42,12 +49,21 @@ struct User {
     var image : UIImage
     
     var imageURL = NSURL(string: self.profileBackgroundURL)
-    if let imageURL = imageURL {
-      if let imageData = NSData(contentsOfURL: imageURL),
-        image = UIImage(data: imageData) {
-          return image
+    
+    if let imageFromDict = TwitterService.SharedService.backgroundImages["\(self.profileBackgroundURL)"] {
+      return imageFromDict
+    } else {
+      if let imageURL = imageURL {
+        if let imageData = NSData(contentsOfURL: imageURL),
+          image = UIImage(data: imageData) {
+            
+            //Add to Background Image Dictionary
+            TwitterService.SharedService.backgroundImages["\(self.profileBackgroundURL)"] = image
+            
+            return image
+        }
+        
       }
-      
     }
     
     return nil
