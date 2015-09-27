@@ -19,9 +19,9 @@ struct User {
   func getprofileImage() -> UIImage? {
     var image : UIImage
     //Grab full size image
-    var newUrl = self.profileImageURL.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
+    let newUrl = self.profileImageURL.stringByReplacingOccurrencesOfString("_normal", withString: "", options: NSStringCompareOptions.LiteralSearch, range: nil)
     
-    var imageURL = NSURL(string: newUrl)
+    let imageURL = NSURL(string: newUrl)
     
     if let image = TwitterService.SharedService.profileImages["\(newUrl)"] {
       return image
@@ -30,7 +30,7 @@ struct User {
         if let imageData = NSData(contentsOfURL: imageURL),
           image = UIImage(data: imageData) {
             //Resize Image
-            var resizedImage = ImageResizer.resizeImage(image)
+            let resizedImage = ImageResizer.resizeImage(image)
             
             //Add to resizedImage
             TwitterService.SharedService.profileImages["\(newUrl)"] = resizedImage
@@ -48,7 +48,7 @@ struct User {
   func getBackgroundImage() -> UIImage? {
     var image : UIImage
     
-    var imageURL = NSURL(string: self.profileBackgroundURL)
+    let imageURL = NSURL(string: self.profileBackgroundURL)
     
     if let imageFromDict = TwitterService.SharedService.backgroundImages["\(self.profileBackgroundURL)"] {
       return imageFromDict

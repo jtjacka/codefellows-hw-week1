@@ -10,17 +10,12 @@ import Foundation
 
 class TweetJSONParser {
   class func TweetFromJSONData(jsonData: NSData) -> [Tweet]? {
-    
-    var error : NSError?
-    
-    
-    if let rootObject = NSJSONSerialization.JSONObjectWithData(
-      jsonData, options: nil, error: &error) as? [[String : AnyObject]] {
-        
+    do {
+      if let rootObject = try NSJSONSerialization.JSONObjectWithData(jsonData, options: []) as? [[String : AnyObject]] {
         
         var tweets = [Tweet]()
         
-        println(rootObject.count)
+        print(rootObject.count)
         
         for tweetObject in rootObject {
           if let text = tweetObject["text"] as? String,
@@ -61,29 +56,27 @@ class TweetJSONParser {
                   tweets.append(newTweet)
                 }
               }
-              
-
-
           }
         }
-        
-
         return tweets
+      }
+    } catch {
+      //Error Catching Here
+      return nil;
     }
     
+    return nil;
+  }
+  
+  class func userFromData(user : [String : AnyObject]) -> User? {
+    if let name = user["name"] as? String,
+      userName = user["screen_name"] as? String,
+      profileImageURL = user["profile_image_url"] as? String,
+      profileBackgroundURL = user["profile_banner_url"] as? String,
+      id = user["id_str"] as? String{
+        return User(id: id, name: name, screenName: userName, profileImageURL: profileImageURL, profileBackgroundURL: profileBackgroundURL)
+    }
     
     return nil
   }
-    
-    class func userFromData(user : [String : AnyObject]) -> User? {
-        if let name = user["name"] as? String,
-        userName = user["screen_name"] as? String,
-        profileImageURL = user["profile_image_url"] as? String,
-        profileBackgroundURL = user["profile_banner_url"] as? String,
-        id = user["id_str"] as? String{
-            return User(id: id, name: name, screenName: userName, profileImageURL: profileImageURL, profileBackgroundURL: profileBackgroundURL)
-        }
-      
-        return nil
-    }
 }

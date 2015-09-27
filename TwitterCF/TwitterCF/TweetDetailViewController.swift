@@ -34,7 +34,6 @@ class TweetDetailViewController: UIViewController {
         NSFontAttributeName: buttonFont
       ]
       UIBarButtonItem.appearance().setTitleTextAttributes(barButtonAttributesDictionary, forState: .Normal)
-      
     }
     
     

@@ -32,14 +32,14 @@ class TweetListViewController: UIViewController {
         
         LoginService.loginForTwitter { (error, account) -> (Void) in
             if let error = error {
-                println(error)
+                print(error)
             } else {
                 if let account = account {
                     TwitterService.SharedService.account = account
                     TwitterService.getAuthUserData()
                     TwitterService.tweetsFromHomeTimeline({ (error, tweets) -> () in
                         if let error = error {
-                            println(error)
+                            print(error)
                         } else {
                             if let tweets = tweets {
                                 NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
@@ -70,7 +70,7 @@ class TweetListViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowTweetDetail" {
             if let destination = segue.destinationViewController as? TweetDetailViewController {
-                if let tweetIndex = tableView.indexPathForSelectedRow()?.row {
+                if let tweetIndex = tableView.indexPathForSelectedRow?.row {
                     destination.tweet = tweets[tweetIndex]
                 }
             }
@@ -79,17 +79,17 @@ class TweetListViewController: UIViewController {
     
     
     func pullToRefresh () {
-        println("Refreshing!")
+        print("Refreshing!")
         
         let sinceID = tweets[0].id
         
         TwitterService.refreshNewTweets(sinceID) { (error, tweets) -> () in
             if let error = error {
-                println(error)
+                print(error)
             } else {
                 if let tweets = tweets {
                     if tweets.count == 0{
-                        println("No new tweets")
+                        print("No new tweets")
                     }
                     NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in
                         self.refreshControl.endRefreshing()
@@ -135,11 +135,11 @@ extension TweetListViewController : UITableViewDataSource {
     
     func tableView(tableView: UITableView, willDisplayCell cell: UITableViewCell, forRowAtIndexPath indexPath: NSIndexPath) {
         if(tweets.count-1 == indexPath.row) {
-            var lastTweetId = tweets[tweets.endIndex-1].id
+            let lastTweetId = tweets[tweets.endIndex-1].id
             
             TwitterService.refreshOldTweets(lastTweetId, completion: { (error, tweets) -> () in
                 if let error = error {
-                    println(error)
+                    print(error)
                 } else {
                     if let tweets = tweets {
                         NSOperationQueue.mainQueue().addOperationWithBlock({ () -> Void in

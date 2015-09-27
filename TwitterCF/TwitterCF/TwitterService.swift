@@ -25,29 +25,29 @@ class TwitterService {
   class func tweetsFromHomeTimeline(completion: (String?, [Tweet]?) -> () ) {
     
     
-   let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: nil)
+    let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: nil)
     request.account = self.SharedService.account
     
     request.performRequestWithHandler { (data, response, error) -> Void in
       if let error = error {
         //Execute completion handler
-          completion("Request Error", nil)
+        completion("Request Error", nil)
       } else {
         switch response.statusCode {
         case 200...299:
-            let tweets = TweetJSONParser.TweetFromJSONData(data)
-            completion(nil, tweets)
+          let tweets = TweetJSONParser.TweetFromJSONData(data)
+          completion(nil, tweets)
         case 400...499:
           completion("This is our fault", nil)
         case 500...599:
           completion("This is the server's fault", nil)
         default:
-            completion("Error", nil)
+          completion("Error", nil)
         }
         
-        }
       }
     }
+  }
   
   //Tweets from other User Timeline
   class func tweetsFromOtherTimeLine(username : String, completion: (String?, [Tweet]?) -> () ) {
@@ -74,90 +74,93 @@ class TwitterService {
       }
     }
   }
+  
+  //Get Authenticated User Data
+  class func getAuthUserData() {
     
-    //Get Authenticated User Data
-    class func getAuthUserData() {
-        
-        
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json"), parameters: nil)
-        request.account = self.SharedService.account
-        
-        request.performRequestWithHandler { (data, response, error) -> Void in
-            if let error = error {
-                //Execute completion handler
-                println("AuthUser Data Error")
-            } else {
-                switch response.statusCode {
-                case 200...299:
-                    var error : NSError?
-                    if let userData = NSJSONSerialization.JSONObjectWithData(data, options: nil, error: &error) as? [String : AnyObject]{
-                        let user = TweetJSONParser.userFromData(userData)
-                      TwitterService.SharedService.user = user
-                    }
-                case 400...499:
-                    println("400..499 error Status code:\(response.statusCode)")
-                case 500...599:
-                    println("500..599 error")
-                default:
-                    println("Unknown get user error")
-                }
-                
+    
+    let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/account/verify_credentials.json"), parameters: nil)
+    request.account = self.SharedService.account
+    
+    request.performRequestWithHandler { (data, response, error) -> Void in
+      if let error = error {
+        //Execute completion handler
+        print("AuthUser Data Error")
+      } else {
+        switch response.statusCode {
+        case 200...299:
+          do {
+            if let userData = try NSJSONSerialization.JSONObjectWithData(data, options: []) as? [String : AnyObject]{
+              let user = TweetJSONParser.userFromData(userData)
+              TwitterService.SharedService.user = user
             }
+          } catch {
+            //handle error here
+          }
+        case 400...499:
+          print("400..499 error Status code:\(response.statusCode)")
+        case 500...599:
+          print("500..599 error")
+        default:
+          print("Unknown get user error")
         }
+        
+      }
     }
+  }
   
   //Refresh New Tweets
-    class func refreshNewTweets(sinceId : String, completion: (String?, [Tweet]?) -> () ) {
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: ["since_id":sinceId])
-        request.account = self.SharedService.account
-        
-        request.performRequestWithHandler { (data, response, error) -> Void in
-            if let error = error {
-                //Execute completion handler
-                completion("Request Error", nil)
-            } else {
-                switch response.statusCode {
-                case 200...299:
-                    let tweets = TweetJSONParser.TweetFromJSONData(data)
-                    completion(nil, tweets)
-                case 400...499:
-                    completion("This is our fault", nil)
-                case 500...599:
-                    completion("This is the server's fault", nil)
-                default:
-                    completion("Error", nil)
-                }
-                
-            }
-        }
-    }
+  class func refreshNewTweets(sinceId : String, completion: (String?, [Tweet]?) -> () ) {
+    let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: ["since_id":sinceId])
+    request.account = self.SharedService.account
     
-  //Grab Old Tweets
-    class func refreshOldTweets(maxId : String, completion: (String?, [Tweet]?) -> () ) {
-        
-        
-        let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: ["max_id":maxId])
-        request.account = self.SharedService.account
-        
-        request.performRequestWithHandler { (data, response, error) -> Void in
-            if let error = error {
-                //Execute completion handler
-                completion("Request Error", nil)
-            } else {
-                switch response.statusCode {
-                case 200...299:
-                    let tweets = TweetJSONParser.TweetFromJSONData(data)
-                    completion(nil, tweets)
-                case 400...499:
-                    completion("This is our fault", nil)
-                case 500...599:
-                    completion("This is the server's fault", nil)
-                default:
-                    completion("Error", nil)
-                }
-                
-            }
+    request.performRequestWithHandler { (data, response, error) -> Void in
+      if let error = error {
+        //Execute completion handler
+        completion("Request Error", nil)
+      } else {
+        switch response.statusCode {
+        case 200...299:
+          let tweets = TweetJSONParser.TweetFromJSONData(data)
+          completion(nil, tweets)
+        case 400...499:
+          completion("This is our fault", nil)
+        case 500...599:
+          completion("This is the server's fault", nil)
+        default:
+          completion("Error", nil)
         }
+        
+      }
     }
-  
   }
+  
+  //Grab Old Tweets
+  class func refreshOldTweets(maxId : String, completion: (String?, [Tweet]?) -> () ) {
+    
+    
+    let request = SLRequest(forServiceType: SLServiceTypeTwitter, requestMethod: SLRequestMethod.GET, URL: NSURL(string: "https://api.twitter.com/1.1/statuses/home_timeline.json"), parameters: ["max_id":maxId])
+    request.account = self.SharedService.account
+    
+    request.performRequestWithHandler { (data, response, error) -> Void in
+      if let error = error {
+        //Execute completion handler
+        completion("Request Error", nil)
+      } else {
+        switch response.statusCode {
+        case 200...299:
+          let tweets = TweetJSONParser.TweetFromJSONData(data)
+          completion(nil, tweets)
+        case 400...499:
+          completion("This is our fault", nil)
+        case 500...599:
+          completion("This is the server's fault", nil)
+        default:
+          completion("Error", nil)
+        }
+        
+      }
+    }
+  }
+  
+}
